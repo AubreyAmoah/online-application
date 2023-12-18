@@ -23,6 +23,7 @@ const MainPage = () => {
   const [isNo, setIsNo] = useState(false);
   const toggleNo = () => {
     setIsNo(!isNo);
+    form.languages = "";
   };
 
   const [isCC, setIsCC] = useState(false);
@@ -122,6 +123,106 @@ const MainPage = () => {
     setPaymentError(!isPaymentError);
   };
 
+  const [form, setForm] = useState({
+    firstname: localStorage.getItem("firstname") || "",
+    lastname: localStorage.getItem("lastname") || "",
+    middlename: localStorage.getItem("middlename") || "",
+    dob: localStorage.getItem("dob") || "",
+    gender: localStorage.getItem("gender") || "",
+    country: localStorage.getItem("country") || "",
+    contact: localStorage.getItem("contact") || "",
+    email: localStorage.getItem("email") || "",
+    kin_firstname: localStorage.getItem("kin_firstname") || "",
+    kin_lastname: localStorage.getItem("kin_lastname") || "",
+    kin_relation: localStorage.getItem("kin_relation") || "",
+    kin_phone: localStorage.getItem("kin_phone") || "",
+    kin_email: localStorage.getItem("kin_email") || "",
+    languages: localStorage.getItem("languages") || "",
+    qualification: localStorage.getItem("qualification") || "",
+    institution: localStorage.getItem("institution") || "",
+    completion: localStorage.getItem("completion") || "",
+    academic_cred: localStorage.getItem("academic_cred") || "",
+    admission_type: localStorage.getItem("admission_type") || "",
+    program: localStorage.getItem("program") || "",
+    proof: localStorage.getItem("proof") || "",
+    payment_method: localStorage.getItem("payment_method") || "",
+  });
+
+  useEffect(() => {
+    // Save the value to localStorage whenever it changes
+    localStorage.setItem("firstname", form.firstname);
+    localStorage.setItem("middlename", form.middlename);
+    localStorage.setItem("lastname", form.lastname);
+    localStorage.setItem("dob", form.dob);
+    localStorage.setItem("gender", form.gender);
+    localStorage.setItem("country", form.country);
+    localStorage.setItem("contact", form.contact);
+    localStorage.setItem("email", form.email);
+    localStorage.setItem("kin_firstname", form.kin_firstname);
+    localStorage.setItem("kin_lastname", form.kin_lastname);
+    localStorage.setItem("kin_relation", form.kin_relation);
+    localStorage.setItem("kin_phone", form.kin_phone);
+    localStorage.setItem("kin_email", form.kin_email);
+    localStorage.setItem("languages", form.languages);
+    localStorage.setItem("qualification", form.qualification);
+    localStorage.setItem("institution", form.institution);
+    localStorage.setItem("completion", form.completion);
+    localStorage.setItem("academic_cred", form.academic_cred);
+    localStorage.setItem("admission_type", form.admission_type);
+    localStorage.setItem("program", form.program);
+    localStorage.setItem("proof", form.proof);
+    localStorage.setItem("payment_method", form.payment_method);
+  }, [
+    form.firstname,
+    form.middlename,
+    form.lastname,
+    form.dob,
+    form.gender,
+    form.country,
+    form.contact,
+    form.email,
+    form.kin_firstname,
+    form.kin_lastname,
+    form.kin_relation,
+    form.kin_phone,
+    form.kin_email,
+    form.languages,
+    form.qualification,
+    form.institution,
+    form.completion,
+    form.academic_cred,
+    form.admission_type,
+    form.program,
+    form.proof,
+    form.payment_method,
+  ]);
+
+  useEffect(() => {
+    if (form.gender === "male") {
+      toggleMale();
+    }
+
+    if (form.gender === "female") {
+      toggleFemale();
+    }
+
+    if (form.languages.length > 0) {
+      toggleYes();
+    }
+
+    if (form.languages === "") {
+      toggleNo();
+    }
+
+    if (form.payment_method === "creditcard") {
+      toggleCC();
+    }
+
+    if (form.payment_method === "person") {
+      togglePerson();
+    }
+  }, []);
+
   const handleNext = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
@@ -170,31 +271,42 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, firstname: e.target.value });
+                    }}
                     placeholder="Firstname"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     id="firstName"
+                    value={form.firstname}
                   />
                   <ErrorText />
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, middlename: e.target.value });
+                    }}
                     placeholder="Middlename"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     id="middleName"
+                    value={form.middlename}
                   />
                   <ErrorText />
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
-                  {" "}
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, lastname: e.target.value });
+                    }}
                     placeholder="Lastname"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     id="lastName"
+                    value={form.lastname}
                   />{" "}
                   <ErrorText />
                 </div>
@@ -206,10 +318,14 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, dob: e.target.value });
+                    }}
                     placeholder="Birth Date"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="date"
                     id="birthDate"
+                    value={form.dob}
                   />
                   <ErrorText />
                 </div>
@@ -227,6 +343,7 @@ const MainPage = () => {
                           toggleFemale();
                         }
                         toggleMale();
+                        setForm({ ...form, gender: e.target.value });
                       }}
                       className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                       type="radio"
@@ -244,6 +361,7 @@ const MainPage = () => {
                           toggleMale();
                         }
                         toggleFemale();
+                        setForm({ ...form, gender: e.target.value });
                       }}
                       className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                       type="radio"
@@ -259,7 +377,13 @@ const MainPage = () => {
 
               <div className="flex flex-col w-[50%] max-md:w-full">
                 <h2 className="mb-2">Of which country are you a citizen</h2>
-                <select className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md w-[80%] outline-none max-md:w-full">
+                <select
+                  onChange={(e) => {
+                    setForm({ ...form, country: e.target.value });
+                  }}
+                  value={form.country}
+                  className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md w-[80%] outline-none max-md:w-full"
+                >
                   <option value="">Please Select</option>
                   <option value="United States">United States</option>
                   <option value="Afghanistan">Afghanistan</option>
@@ -552,6 +676,10 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[50%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, contact: e.target.value });
+                    }}
+                    value={form.contact}
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     placeholder="Phone number"
@@ -560,6 +688,10 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col w-[50%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, email: e.target.value });
+                    }}
+                    value={form.email}
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="email"
                     placeholder="email"
@@ -574,6 +706,10 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, kin_firstname: e.target.value });
+                    }}
+                    value={form.kin_firstname}
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     placeholder="Firstname"
@@ -582,6 +718,10 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, kin_lastname: e.target.value });
+                    }}
+                    value={form.kin_lastname}
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     placeholder="Lastname"
@@ -590,6 +730,10 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, kin_relation: e.target.value });
+                    }}
+                    value={form.kin_relation}
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
                     placeholder="Relationship"
@@ -603,6 +747,10 @@ const MainPage = () => {
                 <div className="flex gap-2 max-md:flex-col">
                   <div className="flex flex-col w-[50%] max-md:w-full">
                     <input
+                      onChange={(e) => {
+                        setForm({ ...form, kin_phone: e.target.value });
+                      }}
+                      value={form.kin_phone}
                       className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                       type="text"
                       placeholder="Phone number"
@@ -611,6 +759,10 @@ const MainPage = () => {
                   </div>
                   <div className="flex flex-col w-[50%] max-md:w-full">
                     <input
+                      onChange={(e) => {
+                        setForm({ ...form, kin_email: e.target.value });
+                      }}
+                      value={form.kin_email}
                       className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                       type="email"
                       placeholder="email"
@@ -666,7 +818,13 @@ const MainPage = () => {
                     <>
                       {" "}
                       <span>Please List them</span>{" "}
-                      <textarea className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md  outline-none h-[200px] max-md:w-full"></textarea>
+                      <textarea
+                        onChange={(e) => {
+                          setForm({ ...form, languages: e.target.value });
+                        }}
+                        value={form.languages}
+                        className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md  outline-none h-[200px] max-md:w-full"
+                      ></textarea>
                     </>
                   )}
                 </div>
@@ -698,7 +856,13 @@ const MainPage = () => {
 
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
-                  <select className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none">
+                  <select
+                    onChange={(e) => {
+                      setForm({ ...form, qualification: e.target.value });
+                    }}
+                    value={form.qualification}
+                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                  >
                     <option value={""}>Please Select</option>
                     <option value={"wassce"}>Wassce</option>
                     <option value={"diploma"}>Diploma</option>
@@ -708,6 +872,10 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, institution: e.target.value });
+                    }}
+                    value={form.institution}
                     placeholder="Institution"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="text"
@@ -716,6 +884,10 @@ const MainPage = () => {
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, completion: e.target.value });
+                    }}
+                    value={form.completion}
                     placeholder="Year of Completion"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                     type="date"
@@ -729,7 +901,13 @@ const MainPage = () => {
               <h2 className=" mb-2">Admission Type</h2>
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
-                  <select className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none">
+                  <select
+                    onChange={(e) => {
+                      setForm({ ...form, academic_cred: e.target.value });
+                    }}
+                    value={form.academic_cred}
+                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                  >
                     <option value={"diploma"}>Diploma</option>
                     <option value={"degree"}>Degree</option>
                     <option value={"masters"}>Masters</option>
@@ -738,7 +916,13 @@ const MainPage = () => {
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
-                  <select className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none">
+                  <select
+                    onChange={(e) => {
+                      setForm({ ...form, admission_type: e.target.value });
+                    }}
+                    value={form.admission_type}
+                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                  >
                     <option value={"regular"}>Regular</option>
                     <option value={"sandwich"}>Sandwich</option>
                   </select>
@@ -751,7 +935,13 @@ const MainPage = () => {
               <h2 className=" mb-2">Program</h2>
               <div className="flex gap-2">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
-                  <select className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none">
+                  <select
+                    onChange={(e) => {
+                      setForm({ ...form, program: e.target.value });
+                    }}
+                    value={form.program}
+                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                  >
                     <option value={""}>Please Select</option>
                     <option value={"diploma"}>Diploma</option>
                     <option value={"degree"}>Degree</option>
@@ -767,6 +957,9 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
+                    onChange={(e) => {
+                      setForm({ ...form, proof: e.target.value });
+                    }}
                     type="file"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                   />
@@ -818,6 +1011,7 @@ const MainPage = () => {
                   <div className="flex gap-2">
                     <input
                       onChange={(e) => {
+                        setForm({ ...form, payment_method: e.target.value });
                         if (isPerson) {
                           togglePerson();
                         }
@@ -825,6 +1019,7 @@ const MainPage = () => {
                       }}
                       type="checkbox"
                       checked={isCC ? true : false}
+                      value={"creditcard"}
                     />
                     <span>Credit Card</span>{" "}
                   </div>
@@ -832,15 +1027,17 @@ const MainPage = () => {
                   <div className="flex gap-2">
                     <input
                       onChange={(e) => {
+                        setForm({ ...form, payment_method: e.target.value });
                         if (isCC) {
                           toggleCC();
                         }
                         togglePerson();
                       }}
                       type="checkbox"
+                      value={"person"}
                       checked={isPerson ? true : false}
                     />
-                    <span>In-person</span>{" "}
+                    <span>In-person</span>
                   </div>
                 </div>
                 <ErrorText />
@@ -854,8 +1051,11 @@ const MainPage = () => {
               >
                 back
               </button>
-              <button className="rounded-md p-4 text-white bg-green-600 w-[100px]">
-                Next
+              <button
+                onClick={console.log(form)}
+                className="rounded-md p-4 text-white bg-green-600 w-[100px]"
+              >
+                Submit
               </button>
             </div>
           </div>
