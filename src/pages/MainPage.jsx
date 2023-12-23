@@ -8,6 +8,9 @@ const MainPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isError, setError] = useState(false);
   const [isActive, setActive] = useState(false);
+  const toggleActive = () => {
+    setActive(!isActive);
+  };
   const [isMale, setIsMale] = useState(false);
   const toggleMale = () => {
     setIsMale(!isMale);
@@ -230,8 +233,287 @@ const MainPage = () => {
   const handleBack = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
+
+  const handleSubmit = () => {
+    if (form.firstname === "") {
+      setCurrentStep(1);
+      return toggleFirstnameError();
+    }
+
+    if (form.lastname === "") {
+      setCurrentStep(1);
+      return toggleLastnameError();
+    }
+
+    if (form.middlename === "") {
+      setCurrentStep(1);
+      return toggleMiddlenameError();
+    }
+
+    if (form.dob === "") {
+      setCurrentStep(1);
+      return toggleBirthdateError();
+    }
+
+    if (form.gender === "") {
+      setCurrentStep(1);
+      return toggleGenderError();
+    }
+
+    if (form.country === "") {
+      setCurrentStep(1);
+      return toggleCountryerror();
+    }
+
+    if (form.contact === "") {
+      setCurrentStep(1);
+      return togglePhone();
+    }
+
+    if (form.email === "") {
+      setCurrentStep(1);
+      return toggleEmailerror();
+    }
+
+    if (form.kin_firstname === "") {
+      setCurrentStep(1);
+      return toggleKinfnameerror();
+    }
+
+    if (form.kin_lastname === "") {
+      setCurrentStep(1);
+      return toggleKinlnameerror();
+    }
+
+    if (form.kin_relation === "") {
+      setCurrentStep(1);
+      return toggleKinrelationerror();
+    }
+
+    if (form.kin_phone === "") {
+      setCurrentStep(1);
+      return toggleKinphoneerror();
+    }
+
+    if (form.qualification === "") {
+      setCurrentStep(2);
+      return toggleQualificationerror();
+    }
+
+    if (form.institution === "") {
+      setCurrentStep(2);
+      return toggleInstitutionerror();
+    }
+
+    if (form.completion === "") {
+      setCurrentStep(2);
+      return toggleCompletionerror();
+    }
+
+    if (form.admission_type === "") {
+      setCurrentStep(2);
+      return toggleAdmissionTypeerror();
+    }
+
+    if (form.academic_cred === "") {
+      setCurrentStep(2);
+      return toggleAcademicCrederror();
+    }
+
+    if (form.program === "") {
+      setCurrentStep(2);
+      return toggleProgramerror();
+    }
+
+    if (form.payment_method === "") {
+      setCurrentStep(3);
+      return togglePaymenterror();
+    }
+
+    toggleActive();
+  };
   return (
-    <div className="">
+    <div className="relative">
+      <div
+        className={
+          isActive
+            ? "bg-[#00000094] w-full min-h-screen absolute top-0 left-0 py-8 z-10"
+            : "hidden"
+        }
+      >
+        <div className="bg-zinc-100 rounded-md p-6 w-[800px] ml-auto mr-auto max-md:mt-2 max-md:w-full">
+          <div className="flex items-center justify-between w-full max-md:flex-col max-md:justify-center max-md:gap-6">
+            <div className="flex items-center gap-4 text-xl">
+              <FontAwesomeIcon icon={faGraduationCap} />
+              <div className="flex flex-col">
+                <span>Universe City</span> <span>College</span>
+              </div>
+            </div>
+            <div className="flex flex-col ">
+              <span>Universe City College</span>
+              <span>123 Universe Street, Ghana</span>
+              <span>universe@mail.com</span>
+              <span>+(123)1234567</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <h1>Form summary</h1>
+            <p>Please go through one more time before submiting form</p>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Full Name</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.firstname === "" ? "N/A" : form.firstname}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.middlename === "" ? "N/A" : form.middlename}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.lastname === "" ? "N/A" : form.lastname}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Date of Birth</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.dob === "" ? "N/A" : form.dob}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Gender</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.gender === "" ? "N/A" : form.gender}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Country</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.country === "" ? "N/A" : form.country}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Contact Details</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[50%] max-md:w-full"`}>
+                {form.contact === "" ? "N/A" : form.contact}
+              </div>
+
+              <div className="flex flex-col w-[50%] max-md:w-full">
+                {form.email === "" ? "N/A" : form.email}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Next of Kin</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.kin_firstname === "" ? "N/A" : form.kin_firstname}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.kin_lastname === "" ? "N/A" : form.kin_lastname}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.kin_relation === "" ? "N/A" : form.kin_relation}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Next of kin contact details</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[50%] max-md:w-full"`}>
+                {form.kin_phone === "" ? "N/A" : form.kin_phone}
+              </div>
+
+              <div className="flex flex-col w-[50%] max-md:w-full">
+                {form.kin_email === "" ? "N/A" : form.kin_email}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Languages</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[50%] max-md:w-full"`}>
+                {form.languages === "" ? "N/A" : form.languages}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Higest Qualification and institution</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.qualification === "" ? "N/A" : form.qualification}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.institution === "" ? "N/A" : form.institution}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.completion === "" ? "N/A" : form.completion}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Admission Type and program</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
+                {form.academic_cred === "" ? "N/A" : form.academic_cred}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.admission_type === "" ? "N/A" : form.admission_type}
+              </div>
+
+              <div className="flex flex-col w-[33.33%] max-md:w-full">
+                {form.program === "" ? "N/A" : form.program}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Payment Method</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[100%] max-md:w-full"`}>
+                {form.payment_method === "" ? "N/A" : form.payment_method}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex mt-6 justify-between items-center">
+            <button className="rounded-md p-4 text-white bg-green-600 w-[100px]">
+              Approve
+            </button>
+            <button
+              onClick={toggleActive}
+              className="rounded-md p-4 text-white bg-red-600 w-[100px]"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="bg-zinc-100 h-20 w-full flex items-center justify-center">
         <span className="text-xl">College Admission Form</span>
       </div>
@@ -255,7 +537,7 @@ const MainPage = () => {
               </div>
               <div className="flex flex-col ">
                 <span>Universe City College</span>
-                <span>123 Dadesen Street, Winnba,</span>
+                <span>123 Universe Street, Ghana,</span>
                 <span>universe@mail.com</span>
                 <span>+(123)1234567</span>
               </div>
@@ -269,46 +551,67 @@ const MainPage = () => {
             <div className="flex flex-col mt-6">
               <h2 className=" mb-2">Name</h2>
               <div className="flex gap-2 max-md:flex-col">
-                <div className="flex flex-col w-[33.33%] max-md:w-full">
+                <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
                   <input
                     onChange={(e) => {
+                      setFirstNameError(false);
                       setForm({ ...form, firstname: e.target.value });
                     }}
                     placeholder="Firstname"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isFirstNameError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     id="firstName"
                     value={form.firstname}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isFirstNameError ? "Field must not be empty" : ""}
+                  />
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setMiddleNameError(false);
                       setForm({ ...form, middlename: e.target.value });
                     }}
                     placeholder="Middlename"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isMiddleNameError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     id="middleName"
                     value={form.middlename}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isMiddleNameError ? "Field must not be empty" : ""}
+                  />
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setLastNameError(false);
                       setForm({ ...form, lastname: e.target.value });
                     }}
                     placeholder="Lastname"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isLastNameError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     id="lastName"
                     value={form.lastname}
                   />{" "}
-                  <ErrorText />
+                  <ErrorText
+                    body={isLastNameError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
             </div>
@@ -319,15 +622,22 @@ const MainPage = () => {
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setBirthDateError(false);
                       setForm({ ...form, dob: e.target.value });
                     }}
                     placeholder="Birth Date"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isBirthDateError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="date"
                     id="birthDate"
                     value={form.dob}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isBirthDateError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
             </div>
@@ -339,6 +649,7 @@ const MainPage = () => {
                   <div className="flex gap-2 items-center">
                     <input
                       onChange={(e) => {
+                        setGenderError(false);
                         if (isFemale) {
                           toggleFemale();
                         }
@@ -357,6 +668,7 @@ const MainPage = () => {
                   <div className="flex gap-2 items-center">
                     <input
                       onChange={(e) => {
+                        setGenderError(false);
                         if (isMale) {
                           toggleMale();
                         }
@@ -372,17 +684,22 @@ const MainPage = () => {
                     <label htmlFor="female">Female</label>
                   </div>
                 </div>
-                <ErrorText />
+                <ErrorText body={isGenderError ? "Select a gender" : ""} />
               </div>
 
               <div className="flex flex-col w-[50%] max-md:w-full">
                 <h2 className="mb-2">Of which country are you a citizen</h2>
                 <select
                   onChange={(e) => {
+                    setCountryError(false);
                     setForm({ ...form, country: e.target.value });
                   }}
                   value={form.country}
-                  className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md w-[80%] outline-none max-md:w-full"
+                  className={`rounded-md outline-none p-2 bg-transparent ${
+                    isCountryError
+                      ? "border-red-500 border-[1px]"
+                      : "border-zinc-500 border-[1px]"
+                  }`}
                 >
                   <option value="">Please Select</option>
                   <option value="United States">United States</option>
@@ -696,7 +1013,9 @@ const MainPage = () => {
                     type="email"
                     placeholder="email"
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isCountryError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
             </div>
@@ -707,38 +1026,62 @@ const MainPage = () => {
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setKinFnameError(false);
                       setForm({ ...form, kin_firstname: e.target.value });
                     }}
                     value={form.kin_firstname}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isKinFnameError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     placeholder="Firstname"
+                    autoFocus={isKinFnameError ? true : false}
                   />{" "}
-                  <ErrorText />
+                  <ErrorText
+                    body={isKinFnameError ? "Field must not be empty" : ""}
+                  />
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setKinLnameError(false);
                       setForm({ ...form, kin_lastname: e.target.value });
                     }}
                     value={form.kin_lastname}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isKinLnameError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     placeholder="Lastname"
+                    autoFocus={isKinLnameError ? true : false}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isKinLnameError ? "Field must not be empty" : ""}
+                  />
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setKinRelationError(false);
                       setForm({ ...form, kin_relation: e.target.value });
                     }}
                     value={form.kin_relation}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isKinRelationError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
                     placeholder="Relationship"
+                    autoFocus={isKinRelationError ? true : false}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isKinRelationError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
 
@@ -748,14 +1091,22 @@ const MainPage = () => {
                   <div className="flex flex-col w-[50%] max-md:w-full">
                     <input
                       onChange={(e) => {
+                        setKinPhoneError(false);
                         setForm({ ...form, kin_phone: e.target.value });
                       }}
                       value={form.kin_phone}
-                      className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                      className={`rounded-md outline-none p-2 bg-transparent ${
+                        isKinPhoneError
+                          ? "border-red-500 border-[1px]"
+                          : "border-zinc-500 border-[1px]"
+                      }`}
                       type="text"
                       placeholder="Phone number"
+                      autoFocus={isKinPhoneError ? true : false}
                     />
-                    <ErrorText />
+                    <ErrorText
+                      body={isKinPhoneError ? "Field must not be empty" : ""}
+                    />
                   </div>
                   <div className="flex flex-col w-[50%] max-md:w-full">
                     <input
@@ -780,6 +1131,7 @@ const MainPage = () => {
                   <div className="flex gap-2 w-[50%]">
                     <input
                       onChange={(e) => {
+                        setLanguageError(false);
                         if (isNo) {
                           toggleNo();
                         }
@@ -797,6 +1149,7 @@ const MainPage = () => {
                   <div className="flex gap-2 w-[50%]">
                     <input
                       onChange={(e) => {
+                        setLanguageError(false);
                         if (isYes) {
                           toggleYes();
                         }
@@ -811,7 +1164,7 @@ const MainPage = () => {
                     <label htmlFor="langNo">No</label>
                   </div>
                 </div>
-                <ErrorText />
+                <ErrorText body={isLanguageError ? "CHoose at one" : ""} />
 
                 <div className="flex flex-col mt-4">
                   {isYes && (
@@ -858,41 +1211,65 @@ const MainPage = () => {
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <select
                     onChange={(e) => {
+                      setQualificationError(false);
                       setForm({ ...form, qualification: e.target.value });
                     }}
                     value={form.qualification}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isQualificationError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
+                    autoFocus={isQualificationError ? true : false}
                   >
                     <option value={""}>Please Select</option>
                     <option value={"wassce"}>Wassce</option>
                     <option value={"diploma"}>Diploma</option>
                     <option value={"degree"}>Degree</option>
                   </select>
-                  <ErrorText />
+                  <ErrorText
+                    body={isQualificationError ? "Field must not be empty" : ""}
+                  />
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setInstitutionError(false);
                       setForm({ ...form, institution: e.target.value });
                     }}
                     value={form.institution}
                     placeholder="Institution"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isInstitutionError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="text"
+                    autoFocus={isInstitutionError ? true : false}
                   />
-                  <ErrorText />
+                  <ErrorText
+                    body={isInstitutionError ? "Field must not be empty" : ""}
+                  />
                 </div>
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
                     onChange={(e) => {
+                      setCompletionError(false);
                       setForm({ ...form, completion: e.target.value });
                     }}
                     value={form.completion}
                     placeholder="Year of Completion"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isCompletionError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                     type="date"
+                    autoFocus={isCompletionError ? true : false}
                   />{" "}
-                  <ErrorText />{" "}
+                  <ErrorText
+                    body={isCompletionError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
             </div>
@@ -903,30 +1280,46 @@ const MainPage = () => {
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <select
                     onChange={(e) => {
+                      setAcademicCredError(false);
                       setForm({ ...form, academic_cred: e.target.value });
                     }}
                     value={form.academic_cred}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    autoFocus={isAcademicCredError ? true : false}
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isAcademicCredError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
                   >
                     <option value={"diploma"}>Diploma</option>
                     <option value={"degree"}>Degree</option>
                     <option value={"masters"}>Masters</option>
                   </select>
-                  <ErrorText />
+                  <ErrorText
+                    body={isAcademicCredError ? "Field must not be empty" : ""}
+                  />
                 </div>
 
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <select
                     onChange={(e) => {
+                      setAdmissionTypeError(false);
                       setForm({ ...form, admission_type: e.target.value });
                     }}
                     value={form.admission_type}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isAdmissionTypeError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
+                    autoFocus={isAdmissionTypeError ? true : false}
                   >
                     <option value={"regular"}>Regular</option>
                     <option value={"sandwich"}>Sandwich</option>
                   </select>
-                  <ErrorText />
+                  <ErrorText
+                    body={isAdmissionTypeError ? "Field must not be empty" : ""}
+                  />
                 </div>
               </div>
             </div>
@@ -937,17 +1330,25 @@ const MainPage = () => {
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <select
                     onChange={(e) => {
+                      setProgramError(false);
                       setForm({ ...form, program: e.target.value });
                     }}
                     value={form.program}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    className={`rounded-md outline-none p-2 bg-transparent ${
+                      isProgramError
+                        ? "border-red-500 border-[1px]"
+                        : "border-zinc-500 border-[1px]"
+                    }`}
+                    autoFocus={isProgramError ? true : false}
                   >
                     <option value={""}>Please Select</option>
                     <option value={"diploma"}>Diploma</option>
                     <option value={"degree"}>Degree</option>
                     <option value={"masters"}>Masters</option>
                   </select>
-                  <ErrorText />{" "}
+                  <ErrorText
+                    body={isProgramError ? "Field must not be empty" : ""}
+                  />{" "}
                 </div>
               </div>
             </div>
@@ -957,12 +1358,28 @@ const MainPage = () => {
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
                   <input
-                    onChange={(e) => {
-                      setForm({ ...form, proof: e.target.value });
+                    onChange={async (e) => {
+                      const [file] = e.target.files;
+
+                      if (file) {
+                        const reader = new FileReader();
+
+                        reader.onload = (e) => {
+                          const image = e.target.result;
+                          setForm({
+                            ...form,
+                            proof: reader.readAsDataURL(image),
+                          });
+                          console.log(form.proof);
+                        };
+                        // setForm({ ...form, proof: await file.text() });
+                        // console.log(await file);
+                      }
                     }}
                     type="file"
                     className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
                   />
+                  <img src={form.proof} alt="" className="h-8 w-8"></img>
                   <ErrorText />
                 </div>
 
@@ -1011,6 +1428,7 @@ const MainPage = () => {
                   <div className="flex gap-2">
                     <input
                       onChange={(e) => {
+                        setPaymentError(false);
                         setForm({ ...form, payment_method: e.target.value });
                         if (isPerson) {
                           togglePerson();
@@ -1027,6 +1445,7 @@ const MainPage = () => {
                   <div className="flex gap-2">
                     <input
                       onChange={(e) => {
+                        setPaymentError(false);
                         setForm({ ...form, payment_method: e.target.value });
                         if (isCC) {
                           toggleCC();
@@ -1040,7 +1459,7 @@ const MainPage = () => {
                     <span>In-person</span>
                   </div>
                 </div>
-                <ErrorText />
+                <ErrorText body={isPaymentError ? "Choose an option" : ""} />
               </div>
             </div>
 
@@ -1052,7 +1471,7 @@ const MainPage = () => {
                 back
               </button>
               <button
-                onClick={console.log(form)}
+                onClick={handleSubmit}
                 className="rounded-md p-4 text-white bg-green-600 w-[100px]"
               >
                 Submit
