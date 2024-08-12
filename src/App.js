@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
+import StatusPage from "./pages/StatusPage";
 
 function App() {
   return (
@@ -44,14 +45,6 @@ const HomePage = () => {
         </Link>
       </div>
     </div>
-  );
-};
-
-const StatusPage = () => {
-  return (
-    <>
-      <h1>Status</h1>
-    </>
   );
 };
 
