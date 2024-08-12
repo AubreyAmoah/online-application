@@ -6,7 +6,10 @@ import ErrorText from "../components/ErrorText";
 
 const MainPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [isError, setError] = useState(false);
+  // const [isError, setError] = useState(false);
+  const [imagePreview, setImagePreview] = useState(
+    "https://miro.medium.com/v2/resize:fit:500/format:webp/1*DSNfSDcOe33E2Aup1Sww2w.jpeg"
+  );
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive(!isActive);
@@ -147,7 +150,6 @@ const MainPage = () => {
     academic_cred: localStorage.getItem("academic_cred") || "",
     admission_type: localStorage.getItem("admission_type") || "",
     program: localStorage.getItem("program") || "",
-    proof: localStorage.getItem("proof") || "",
     payment_method: localStorage.getItem("payment_method") || "",
   });
 
@@ -173,7 +175,6 @@ const MainPage = () => {
     localStorage.setItem("academic_cred", form.academic_cred);
     localStorage.setItem("admission_type", form.admission_type);
     localStorage.setItem("program", form.program);
-    localStorage.setItem("proof", form.proof);
     localStorage.setItem("payment_method", form.payment_method);
   }, [
     form.firstname,
@@ -196,7 +197,6 @@ const MainPage = () => {
     form.academic_cred,
     form.admission_type,
     form.program,
-    form.proof,
     form.payment_method,
   ]);
 
@@ -331,6 +331,26 @@ const MainPage = () => {
     }
 
     toggleActive();
+  };
+
+  useEffect(() => {
+    const savedImage = localStorage.getItem("savedImage");
+    if (savedImage) {
+      setImagePreview(savedImage);
+    }
+  }, []);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageDataUrl = reader.result;
+        setImagePreview(imageDataUrl);
+        localStorage.setItem("savedImage", imageDataUrl); // Save the image to localStorage
+      };
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <div className="relative">
@@ -488,6 +508,20 @@ const MainPage = () => {
 
               <div className="flex flex-col w-[33.33%] max-md:w-full">
                 {form.program === "" ? "N/A" : form.program}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col mt-6">
+            <h2 className=" mb-2">Proof of Qualification</h2>
+            <div className="flex gap-2 max-md:flex-col">
+              <div className={`"flex flex-col w-[100%] max-md:w-full"`}>
+                <img
+                  src={imagePreview}
+                  alt="preview"
+                  height={100}
+                  width={100}
+                />
               </div>
             </div>
           </div>
@@ -1314,6 +1348,7 @@ const MainPage = () => {
                     }`}
                     autoFocus={isAdmissionTypeError ? true : false}
                   >
+                    <option value={""}>Sandwich / Regular</option>
                     <option value={"regular"}>Regular</option>
                     <option value={"sandwich"}>Sandwich</option>
                   </select>
@@ -1342,9 +1377,50 @@ const MainPage = () => {
                     autoFocus={isProgramError ? true : false}
                   >
                     <option value={""}>Please Select</option>
-                    <option value={"diploma"}>Diploma</option>
-                    <option value={"degree"}>Degree</option>
-                    <option value={"masters"}>Masters</option>
+                    {form.academic_cred === "diploma" && (
+                      <>
+                        {" "}
+                        <option value={"DiplomaComputerScience"}>
+                          Diploma in Computer Science
+                        </option>
+                        <option value={"DiplomaCyberSecurity"}>
+                          Diploma in Cyber Security
+                        </option>
+                        <option value={"DiplomaInfoSec"}>
+                          Diploma in Information Security
+                        </option>
+                      </>
+                    )}
+
+                    {form.academic_cred === "degree" && (
+                      <>
+                        {" "}
+                        <option value={"DegreeComputerScience"}>
+                          Degree in Computer Science
+                        </option>
+                        <option value={"DegreeCyberSecurity"}>
+                          Degree in Cyber Security
+                        </option>
+                        <option value={"DegreeInfoSec"}>
+                          Degree in Information Security
+                        </option>
+                      </>
+                    )}
+
+                    {form.academic_cred === "masters" && (
+                      <>
+                        {" "}
+                        <option value={"MasterComputerScience"}>
+                          Master in Computer Science
+                        </option>
+                        <option value={"MasterCyberSecurity"}>
+                          Master in Cyber Security
+                        </option>
+                        <option value={"MasterInfoSec"}>
+                          Master in Information Security
+                        </option>
+                      </>
+                    )}
                   </select>
                   <ErrorText
                     body={isProgramError ? "Field must not be empty" : ""}
@@ -1357,29 +1433,29 @@ const MainPage = () => {
               <h2 className=" mb-2">Proof of Qualification</h2>
               <div className="flex gap-2 max-md:flex-col">
                 <div className="flex flex-col w-[33.33%] max-md:w-full">
+                  <label
+                    className={`${
+                      form.email !== ""
+                        ? "h-[200px] w-[200px] rounded-md cursor-pointer"
+                        : "hidden"
+                    }`}
+                    htmlFor="image-proof"
+                  >
+                    <img
+                      src={imagePreview}
+                      alt=""
+                      className="h-full w-full"
+                    ></img>
+                  </label>
                   <input
-                    onChange={async (e) => {
-                      const [file] = e.target.files;
-
-                      if (file) {
-                        const reader = new FileReader();
-
-                        reader.onload = (e) => {
-                          const image = e.target.result;
-                          setForm({
-                            ...form,
-                            proof: reader.readAsDataURL(image),
-                          });
-                          console.log(form.proof);
-                        };
-                        // setForm({ ...form, proof: await file.text() });
-                        // console.log(await file);
-                      }
-                    }}
+                    name="image-proof"
+                    id="image-proof"
+                    onChange={handleImageChange}
                     type="file"
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none"
+                    accept=".jpg,.jpeg,.png"
+                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none hidden"
                   />
-                  <img src={form.proof} alt="" className="h-8 w-8"></img>
+
                   <ErrorText />
                 </div>
 
