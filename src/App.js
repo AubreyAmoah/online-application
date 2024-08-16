@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import StatusPage from "./pages/StatusPage";
+import PaymentPage from "./pages/PaymentPage";
+import FinalPage from "./pages/FinalPage";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/application" element={<MainPage />} />
           <Route path="/status" element={<StatusPage />} />
+          <Route path="/payment" element={<PaymentPage />} />
+          <Route path="/status" element={<FinalPage />} />
         </Routes>
       </BrowserRouter>
     </div>
