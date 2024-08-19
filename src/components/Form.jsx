@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ErrorText from "../components/ErrorText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap, faHome } from "@fortawesome/free-solid-svg-icons";
@@ -8,8 +7,6 @@ const Form = ({
   form,
   setForm,
   toggleActive,
-  imagePreview,
-  handleImageChange,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -91,10 +88,6 @@ const Form = ({
   const toggleKinemailerror = () => {
     setKinEmailError(!isKinEmailError);
   };
-  const [isLanguageError, setLanguageError] = useState(false);
-  const toggleLanguageerror = () => {
-    setLanguageError(!isLanguageError);
-  };
   const [isQualificationError, setQualificationError] = useState(false);
   const toggleQualificationerror = () => {
     setQualificationError(!isQualificationError);
@@ -118,10 +111,6 @@ const Form = ({
   const [isProgramError, setProgramError] = useState(false);
   const toggleProgramerror = () => {
     setProgramError(!isProgramError);
-  };
-  const [isProofError, setProofError] = useState(false);
-  const toggleProoferror = () => {
-    setProofError(!isProofError);
   };
   const [isPaymentError, setPaymentError] = useState(false);
   const togglePaymenterror = () => {
@@ -242,10 +231,6 @@ const Form = ({
 
     if (form.gender === "female") {
       toggleFemale();
-    }
-
-    if (form.languages.length > 0) {
-      toggleYes();
     }
 
     if (form.languages === "") {
@@ -855,66 +840,6 @@ const Form = ({
               </div>
             </div>
 
-            <div className="flex flex-col mt-6">
-              <h2 className=" mb-2">
-                Do you speak any languages other than English
-              </h2>
-              <div className="flex gap-2 text-xl max-md:flex-col">
-                <div className="flex gap-2 w-[50%]">
-                  <input
-                    onChange={(e) => {
-                      setLanguageError(false);
-                      if (isNo) {
-                        toggleNo();
-                      }
-                      toggleYes();
-                    }}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md  outline-none"
-                    type="radio"
-                    placeholder="Phone number"
-                    id="langYes"
-                    checked={isYes ? true : false}
-                  />
-                  <label htmlFor="langYes">Yes</label>
-                </div>
-
-                <div className="flex gap-2 w-[50%]">
-                  <input
-                    onChange={(e) => {
-                      setLanguageError(false);
-                      if (isYes) {
-                        toggleYes();
-                      }
-                      toggleNo();
-                    }}
-                    className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md  outline-none"
-                    type="radio"
-                    placeholder="Phone number"
-                    id="langNo"
-                    checked={isNo ? true : false}
-                  />
-                  <label htmlFor="langNo">No</label>
-                </div>
-              </div>
-              <ErrorText body={isLanguageError ? "CHoose at one" : ""} />
-
-              <div className="flex flex-col mt-4">
-                {isYes && (
-                  <>
-                    {" "}
-                    <span>Please List them</span>{" "}
-                    <textarea
-                      onChange={(e) => {
-                        setForm({ ...form, languages: e.target.value });
-                      }}
-                      value={form.languages}
-                      className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md  outline-none h-[200px] max-md:w-full"
-                    ></textarea>
-                  </>
-                )}
-              </div>
-            </div>
-
             <div className="flex mt-6 justify-end items-center">
               <button
                 onClick={handleNext}
@@ -1123,45 +1048,6 @@ const Form = ({
                 <ErrorText
                   body={isProgramError ? "Field must not be empty" : ""}
                 />{" "}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col mt-6">
-            <h2 className=" mb-2">Proof of Qualification</h2>
-            <div className="flex gap-2 max-md:flex-col">
-              <div className="flex flex-col w-[33.33%] max-md:w-full">
-                <label
-                  className={`${
-                    form.email !== ""
-                      ? "h-[200px] w-[200px] rounded-md cursor-pointer"
-                      : "hidden"
-                  }`}
-                  htmlFor="image-proof"
-                >
-                  <img
-                    src={imagePreview}
-                    alt=""
-                    className="h-full w-full"
-                  ></img>
-                </label>
-                <input
-                  name="image-proof"
-                  id="image-proof"
-                  onChange={handleImageChange}
-                  type="file"
-                  accept=".jpg,.jpeg,.png"
-                  className="p-2 bg-transparent border-zinc-500 border-[1px] rounded-md outline-none hidden"
-                />
-
-                <ErrorText />
-              </div>
-
-              <div className=" w-[66.67%] max-md:w-full">
-                <span>
-                  You are required to upload a scanned image of your higest
-                  qualification as proof
-                </span>
               </div>
             </div>
           </div>

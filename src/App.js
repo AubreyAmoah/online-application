@@ -3,6 +3,8 @@ import MainPage from "./pages/MainPage";
 import StatusPage from "./pages/StatusPage";
 import PaymentPage from "./pages/PaymentPage";
 import FinalPage from "./pages/FinalPage";
+import ImagePage from "./pages/ImagePage";
+import ProofPage from "./pages/ProofPage";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="/status" element={<StatusPage />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/status" element={<FinalPage />} />
+          <Route path="/image-upload" element={<ImagePage />} />
+          <Route path="/proof-upload" element={<ProofPage />} />
         </Routes>
       </BrowserRouter>
     </div>

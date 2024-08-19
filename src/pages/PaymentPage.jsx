@@ -95,6 +95,10 @@ const PaymentPage = () => {
         <button className=" bg-sky-900 hover:bg-sky-500 text-white p-4 rounded-md w-[150px] mt-8 ml-auto mr-auto text-center">
           Submit
         </button>
+
+        <button className=" bg-sky-900 hover:bg-sky-500 text-white p-4 rounded-md w-[150px] mt-8 ml-auto mr-auto text-center">
+          Pay Later
+        </button>
       </div>
     </div>
   );

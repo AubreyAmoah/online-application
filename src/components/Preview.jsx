@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap, faHome } from "@fortawesome/free-solid-svg-icons";
+
 import { useNavigate } from "react-router-dom";
 
-const Preview = ({ form, isActive, toggleActive, imagePreview }) => {
+const Preview = ({ form, isActive, toggleActive }) => {
   const navigate = useNavigate();
+  const handleFormSubmit = () => {
+    navigate("/image-upload");
+  };
+
   return (
     <div
       className={
@@ -122,15 +127,6 @@ const Preview = ({ form, isActive, toggleActive, imagePreview }) => {
         </div>
 
         <div className="flex flex-col mt-6">
-          <h2 className=" mb-2">Languages</h2>
-          <div className="flex gap-2 max-md:flex-col">
-            <div className={`"flex flex-col w-[50%] max-md:w-full"`}>
-              {form.languages === "" ? "N/A" : form.languages}
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col mt-6">
           <h2 className=" mb-2">Higest Qualification and institution</h2>
           <div className="flex gap-2 max-md:flex-col">
             <div className={`"flex flex-col w-[33.33%] max-md:w-full"`}>
@@ -165,15 +161,6 @@ const Preview = ({ form, isActive, toggleActive, imagePreview }) => {
         </div>
 
         <div className="flex flex-col mt-6">
-          <h2 className=" mb-2">Proof of Qualification</h2>
-          <div className="flex gap-2 max-md:flex-col">
-            <div className={`"flex flex-col w-[100%] max-md:w-full"`}>
-              <img src={imagePreview} alt="preview" height={100} width={100} />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col mt-6">
           <h2 className=" mb-2">Payment Method</h2>
           <div className="flex gap-2 max-md:flex-col">
             <div className={`"flex flex-col w-[100%] max-md:w-full"`}>
@@ -184,13 +171,7 @@ const Preview = ({ form, isActive, toggleActive, imagePreview }) => {
 
         <div className="flex mt-6 justify-between items-center">
           <button
-            onClick={() => {
-              if (form.payment_method === "creditcard") {
-                navigate("/payment");
-              } else {
-                navigate("/final");
-              }
-            }}
+            onClick={handleFormSubmit}
             className="rounded-md p-4 text-white bg-green-600 w-[100px]"
           >
             Approve
